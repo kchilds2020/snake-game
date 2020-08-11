@@ -74,7 +74,7 @@ useEffect(() => {
   context.clearRect(0,0,CANVAS_SIZE[0], CANVAS_SIZE[1])
   context.fillStyle = 'green'
   snake.forEach(([x,y]) => context.fillRect(x, y , 1, 1))
-  context.fillStyle = 'pink'
+  context.fillStyle = 'red'
   context.fillRect(apple[0],apple[1], 1, 1)
 },[snake, apple, gameOver])
 
@@ -84,7 +84,10 @@ useInterval(() => gameLoop(), speed)
     <Window>
       <Container>
         <Game role='button' tabIndex='0' onKeyDown={e => moveSnake(e)}>
-          {gameOver ? <Title>Game Over: {score}</Title> : <Title>Score: {score}</Title>}
+          <Info>
+            <Title>Snake!</Title>
+            {gameOver ? <Title>Game Over: {score}</Title> : <Title>Score: {score}</Title>}
+          </Info>
           <Canvas ref={canvasRef} width = {CANVAS_SIZE[0]} height = {CANVAS_SIZE[1]}/>
           <Button onClick={startGame}>Start Game</Button>
         </Game>
@@ -93,6 +96,11 @@ useInterval(() => gameLoop(), speed)
   );
 }
 
+const Info = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`
 
 const Window = styled.div`
   width: 100vw;
@@ -116,7 +124,6 @@ const Game = styled.div`
 const Canvas = styled.canvas`
   box-shadow: 0px 0px 4px #333;
   border-radius: 8px;
-  margin-top: 20px;
   background-color: white;
 `
 
@@ -140,7 +147,7 @@ const Button = styled.button`
 `
 
 const Title = styled.h2`
-  margin: 0px;
+  margin: 10px;
   color: white;
 `
 
